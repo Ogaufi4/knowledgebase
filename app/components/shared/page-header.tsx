@@ -8,7 +8,7 @@ interface PageHeaderProps {
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{title}</h1>
         {description && (
-          <p className="mt-4 text-lg text-muted-foreground bg-black">{description}</p>
+          <p className="mt-4 text-lg text-muted-foreground ">{description}</p>
         )}
       </div>
     )

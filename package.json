@@ -11,26 +11,34 @@
     "dependencies": {
         "@nextui-org/react": "^2.6.11",
         "@radix-ui/react-slot": "^1.1.2",
+        "@radix-ui/themes": "^3.2.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
+        "langchain": "^0.3.19",
         "lucide-react": "^0.477.0",
         "next": "15.2.0",
+        "nextjs-toploader": "^3.7.15",
+        "openai": "^4.86.1",
         "react": "^19.0.0",
+        "react-canvas-confetti": "^2.0.7",
         "react-dom": "^19.0.0",
+        "react-use": "^17.6.0",
+        "sweetalert2": "^11.17.2",
+        "sweetalert2-react-content": "^5.1.0",
         "tailwind-merge": "^3.0.2",
         "tailwindcss-animate": "^1.0.7"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",
         "@types/node": "^20",
-        "@types/react": "^19",
+        "@types/react": "^19.0.10",
         "@types/react-dom": "^19",
         "autoprefixer": "^10.4.20",
         "eslint": "^9",
         "eslint-config-next": "15.2.0",
-        "prettier": "^3.5.2",
         "postcss": "^8",
-        "tailwindcss": "^3.4.1",
+        "prettier": "^3.5.2",
+        "tailwindcss": "^3.4.17",
         "typescript": "^5"
     }
 }
