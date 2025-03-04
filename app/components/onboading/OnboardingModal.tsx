@@ -27,6 +27,8 @@ import {
 } from '../ui/select'
 import { Checkbox } from '../ui/checkbox'
 
+import { createNewOnboarding } from '@/lib/api'
+
 type OnboardingModalProps = {
     isOpen: boolean
     onClose: () => void
@@ -38,6 +40,7 @@ export function OnboardingModal({
     onClose,
     userEmail,
 }: OnboardingModalProps) {
+    // const clerk = useClerk();
     const [isSubmitting, setIsSubmitting] = useState(false)
     //steps
     const [step, setStep] = useState(1)
@@ -90,20 +93,39 @@ export function OnboardingModal({
         { label: 'Cultural Preservation', value: 'cultural-preservation' },
     ]
 
-    const onSubmit = (data: z.infer<typeof OnboardingFormSchema>) => {
-      setIsSubmitting(true)
+    const onSubmit = async (data: z.infer<typeof OnboardingFormSchema>) => {
+        setIsSubmitting(true)
 
-      try {
-          //TODO: submit data to the server
-          // TODO: try tiny DB to save data or zustand
-          console.log(">>>>>>>>Form data>>>>>>>>>>>>", JSON.stringify(data))
-          onClose()
-      } catch (error) {
-        console.error("Error submitting onboarding data:", error)
+        try {
+            //TODO: submit data to the server
+            // TODO: try tiny DB to save data or zustand
+            // Submit to the api
+            console.log('>>>>>>>>Form data>>>>>>>>>>>>', JSON.stringify(data))
+            // const req_data = JSON.stringify(data)
 
-      }finally {
-        setIsSubmitting(false)
-      }
+            // await newEntry()
+            await createNewOnboarding(data)
+            //   console.log(">>>>>>>>User data>>>>>>>>>>>>", JSON.stringify(getUserByClerkID()))
+            //   const user = await currentUser()
+            //   console.log(user)
+            //   const response = await fetch(new Request(createURL('/api/onboarding')),{
+            //     method: 'POST',
+            //     headers: {
+            //     "Content-Type": "application/json",
+            //     Authorization: `Bearer ${clerk?.session?.getToken()}`,
+
+            //     },
+            //     body: JSON.stringify(data)
+            //   })
+            //   if (response.ok){
+            //     console.log(">>>>>>>>>>>On OK response", JSON.stringify(response))
+            //   }
+            onClose()
+        } catch (error) {
+            console.error('Error submitting onboarding data:', error)
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (

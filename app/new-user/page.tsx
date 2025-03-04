@@ -1,21 +1,37 @@
-"use client"
-import { PageHeader } from "@/app/components/shared/page-header";
-import { useState } from "react";
-import { Button } from "../components/ui/button";
-import { OnboardingModal } from "@/app/components/onboading/OnboardingModal";
 
-export default function NewUserPage() {
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    return (
 
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-    <h1 className="mb-8 font-bold text-4xl">Welcome to Our Knowledge Base Platform</h1>
-    <Button onClick={()=>setIsModalOpen(true)}>Start Onboarding</Button>
-    <OnboardingModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        userEmail="user@university.edu" // Example email for demonstration: To remove later
-      />
-  </main>
-    );
-  }
+import { redirect } from 'next/navigation'
+import { currentUser } from '@clerk/nextjs/server'
+import prisma from '@/lib/prisma'
+
+const createNewUser = async () => {
+    const user = await currentUser()
+    if (!user) {
+        throw new Error('User not found')
+    }
+    console.log(user)
+
+    const match = await prisma.users.findUnique({
+        where: {
+            clerkId: user.id as string,
+        },
+    })
+
+    if (!match) {
+        await prisma.users.create({
+            data: {
+                clerkId: user.id,
+                email: user.emailAddresses[0].emailAddress,
+            },
+        })
+    }
+
+    redirect('/onboarding')
+}
+
+const NewUserPage = async () => {
+    await createNewUser()
+    return <div>...loading</div>
+}
+
+export default NewUserPage

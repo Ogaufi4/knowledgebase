@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id         String      @id @default(uuid())
+  email      String      @unique
+  clerkId    String      @unique
+  name       String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime?   @updatedAt
+  account    Account?
+  // onboarding Onboarding?
+  // onboarding   Onboarding? @relation(fields: [onboardingId], references: [id])
+  // onboardingId String?
+
+  @@map("users")
+}
+
+model Account {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+  // stripeCustomerId String @unique
+
+  @@unique([userId])
+  @@map("accounts")
+}
+
+model Onboarding {
+  id              String    @id @default(uuid())
+  researchPurpose String?
+  organization    String?
+  // interests       String[]
+  termsAccepted   Boolean?
+  userId          String @unique
+  // user            User      @relation(fields: [userId], references: [id])
+  createdAt       DateTime  @default(now())
+
+  @@map("onboardings")
+}
+
+// model Account {
+//   id           String     @id @default(uuid())
+//   userId       String
+//   user         User       @relation(fields: [userId], references: [id])
+//   type         String
+//   provider     String
+//   providerAccountId String
+//   createdAt    DateTime   @default(now())
+//   updatedAt    DateTime   @updatedAt
+
+//   @@unique([provider, providerAccountId])
+// }
+
+// model Onboarding {
+//   id              String    @id @default(uuid())
+//   researchPurpose String?
+//   organization    String?
+//   interests       String[]
+//   termsAccepted   Boolean
+//   userId          String
+//   user            User      @relation(fields: [userId], references: [id])
+//   createdAt       DateTime  @default(now())
+//   updatedAt       DateTime? @updatedAt
+
+//   @@unique([userId])
+//   @@map("onboardings")
+// }
