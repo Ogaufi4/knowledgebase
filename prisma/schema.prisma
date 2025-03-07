@@ -44,7 +44,7 @@ model Onboarding {
   id              String    @id @default(uuid())
   researchPurpose String?
   organization    String?
-  // interests       String[]
+  interests       String[]
   termsAccepted   Boolean?
   userId          String @unique
   // user            User      @relation(fields: [userId], references: [id])
