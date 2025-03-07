@@ -14,18 +14,18 @@ export const POST = async (req: Request) => {
     try {
         const data = await req.json()
 
-        await prisma.onboarding.create({
+        const entry = await prisma.onboarding.create({
             data: {
                 researchPurpose: data.researchPurpose,
                 organization: data.organization,
-                // interests: data.interests,
+                interests: data.interests,
                 termsAccepted: true,
                 //user: { connect: { id: user_clerk.id } },
                 userId: user_clerk.id,
             },
         })
         // return Response.json({ data });
-        return NextResponse.json({ data: req })
+        return NextResponse.json({ data: entry })
     } catch (error) {
         console.error(error);
         return NextResponse.json(

@@ -28,6 +28,7 @@ import {
 import { Checkbox } from '../ui/checkbox'
 
 import { createNewOnboarding } from '@/lib/api'
+import { redirect } from 'next/navigation'
 
 type OnboardingModalProps = {
     isOpen: boolean
@@ -95,32 +96,12 @@ export function OnboardingModal({
 
     const onSubmit = async (data: z.infer<typeof OnboardingFormSchema>) => {
         setIsSubmitting(true)
-
         try {
-            //TODO: submit data to the server
-            // TODO: try tiny DB to save data or zustand
-            // Submit to the api
-            console.log('>>>>>>>>Form data>>>>>>>>>>>>', JSON.stringify(data))
-            // const req_data = JSON.stringify(data)
 
-            // await newEntry()
-            await createNewOnboarding(data)
-            //   console.log(">>>>>>>>User data>>>>>>>>>>>>", JSON.stringify(getUserByClerkID()))
-            //   const user = await currentUser()
-            //   console.log(user)
-            //   const response = await fetch(new Request(createURL('/api/onboarding')),{
-            //     method: 'POST',
-            //     headers: {
-            //     "Content-Type": "application/json",
-            //     Authorization: `Bearer ${clerk?.session?.getToken()}`,
+            // await createNewOnboarding(data)
 
-            //     },
-            //     body: JSON.stringify(data)
-            //   })
-            //   if (response.ok){
-            //     console.log(">>>>>>>>>>>On OK response", JSON.stringify(response))
-            //   }
-            onClose()
+            // onClose()
+            redirect('/dashboard')
         } catch (error) {
             console.error('Error submitting onboarding data:', error)
         } finally {
