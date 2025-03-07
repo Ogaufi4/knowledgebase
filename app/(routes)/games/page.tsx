@@ -7,7 +7,7 @@ function Games() {
     <div>
       <div className="p-3">
         <Container />
-        <ConfettiButton />
+        
       </div>
     </div>
   );
