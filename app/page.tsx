@@ -16,6 +16,7 @@ export default async function Home() {
         <div className="min-h-screen flex flex-col ">
             <div className="flex-grow">
                 {/* <HomeNavigation/> */}
+                
                 <HeroSection href={href}/>
 
         <CategoryGrid />

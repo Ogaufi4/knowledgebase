@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
     const menuItems = [
         { icon: HomeIcon, label: 'Overview', href: '/overview' },
         { icon: BookOpenText, label: 'Knowledgebase', href: '/knowledgebase' },
-        { icon: BrainCircuit, label: 'KitsoAI', href: '/chatbot',badge: 'Beta', },
+        { icon: BrainCircuit, label: 'KitsoAI', href: '/dashboard/kitsoai',badge: 'Beta', },
         {
             icon: UsersRound,
             label: 'Cultures',
