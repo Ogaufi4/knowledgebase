@@ -20,15 +20,13 @@ import {
     ArrowUpRight,
     BookOpen,
     Clock,
-    Filter,
     History,
     Leaf,
-    Search,
 } from 'lucide-react'
 import { Button } from '@/app/components/ui/button'
 import { RecentEntries } from '@/app/components/shared/overview/recent-entries'
 import { TimeSeriesChart } from '@/app/components/shared/overview/time-series-chart'
-import { Input } from '@/app/components/ui/input'
+
 import OverviewGridMetrics from '@/app/components/shared/overview/metrics'
 
 export default function DashboardOverview() {
