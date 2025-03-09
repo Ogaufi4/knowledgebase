@@ -94,14 +94,17 @@ export function OnboardingModal({
         { label: 'Cultural Preservation', value: 'cultural-preservation' },
     ]
 
+    
     const onSubmit = async (data: z.infer<typeof OnboardingFormSchema>) => {
         setIsSubmitting(true)
         try {
 
             // await createNewOnboarding(data)
 
-            // onClose()
-            redirect('/dashboard')
+             
+            
+            redirect('/dashboard') 
+          
         } catch (error) {
             console.error('Error submitting onboarding data:', error)
         } finally {

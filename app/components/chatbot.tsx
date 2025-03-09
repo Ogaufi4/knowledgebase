@@ -13,7 +13,7 @@ const Chatbot: React.FC = () => {
   // Toggle chat visibility
   const toggleChat = () => setIsOpen(!isOpen);
 
-  // Handle sending user message
+  // Handle sending user messageaaaaaa
   const handleSendMessage = async (event: React.FormEvent) => {
     event.preventDefault();
     if (userMessage.trim()) {
