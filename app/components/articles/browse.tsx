@@ -5,6 +5,10 @@ import { Separator } from '../ui/separator';
 import ArticleCard from './article-card';
 import CategoryFilter from './category-filter';
 import ArticleSearchBar from './search-bar';
+import { usePathname } from 'next/navigation'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 export default function ArticleBrowse() {
 
@@ -48,11 +52,19 @@ export default function ArticleBrowse() {
         setSearchQuery(query)
         // implement handling filters
     }
-
+    const pathname = usePathname()
     return <div className='flex min-h-screen flex-col '>
         <main className='flex-grow pt-10 pb-16'>
             <div className='container px-4 mx-a'>
                 <div className='mb-10'>
+                {pathname === '/browse' &&(
+            <Button asChild variant="link" className="mt-4 sm:mt-0">
+              <Link href="/" className="flex items-center">
+              <ArrowLeft className="ml-2 h-4 w-4" />
+              Back
+              </Link>
+            </Button>
+          ) }
                     <h1 className='mb-4'>Browse Articles</h1>
                     <p className='text-xl text-muted-foreground max-w-3lx'>
                     Explore our comprehensive collection of articles, research papers, and resources
