@@ -7,4 +7,4 @@ export class ServiceEndPoints {
     public static readonly getAllArtifacts = `${ServiceEndPoints.apiBaseURL}/artifacts/artifacts/`
     public static readonly createArtifacts = `${ServiceEndPoints.apiBaseURL}/artifacts/artifacts/`
     public static readonly getMetrics = `${ServiceEndPoints.apiBaseURL}/metrics/`
-  }
+}

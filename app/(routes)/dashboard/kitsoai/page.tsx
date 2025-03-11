@@ -1,11 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { SuggestedActions } from "@/app/components/suggested-actions";
 
 export default function KitsoAIPage() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<{ sender: string; message: string }[]>([]); 
     const [userMessage, setUserMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false); // For loading state when waiting for AI response
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages]);
 
     // Handle sending user message
     const handleSendMessage = async (event: React.FormEvent) => {
@@ -69,9 +77,15 @@ export default function KitsoAIPage() {
         }
     };
 
+    const appendAndTrigger = async (message: { id: string; role: string; content: string }) => {
+        setUserMessage(message.content); // Set the user message to the content of the message
+        await handleSendMessage({ preventDefault: () => {} } as unknown as React.FormEvent);
+        setIsOpen(false); // Hide suggestions after first message
+    };
+
     return (
         <>
-        <div className="flex h-full bg-gray-50 dark:bg-gray-900">
+        <div className="flex h-full bg-gray-50 dark:bg-gray-900"> 
             <div className="flex flex-col flex-1 overflow-y-auto p-4 bg-gray-100 dark:bg-gray-800">
                 <div
                     id="chatContainer"
@@ -81,7 +95,7 @@ export default function KitsoAIPage() {
                     <div className="flex flex-col space-y-1.5 pb-6">
                         <h2 className="font-semibold text-lg tracking-tight">Kitso Ai</h2>
                         <p className="text-sm text-[#6b7280] leading-3">
-                            Powered by openAi and Ditso
+                            Powered by openAi and KitsoAi
                         </p>
                     </div>
 
@@ -95,7 +109,7 @@ export default function KitsoAIPage() {
                                 key={index}
                                 className="flex gap-3 my-4 text-sm"
                                 style={{
-                                    textAlign: message.sender === "You" ? "right" : "left",
+                                    textAlign: message.sender === "You" ? "justify" : "left",
                                 }}
                             >
                                 <span className="relative flex shrink-0 overflow-hidden rounded-full w-8 h-8">
@@ -124,7 +138,15 @@ export default function KitsoAIPage() {
                                 </p>
                             </div>
                         ))}
+                        <div ref={messagesEndRef} />
                     </div>
+
+                    {/* Suggested Actions */}
+                    {messages.length === 0 && (
+                        <div className="flex flex-col mb-5">
+                            <SuggestedActions appendAndTrigger={appendAndTrigger} />
+                        </div>
+                    )}
 
                     {/* Input Box */}
                     <div className="flex items-center pt-0">
@@ -159,4 +181,3 @@ export default function KitsoAIPage() {
 function getBotResponse(userMessage: string) {
     throw new Error("Function not implemented.");
 }
-

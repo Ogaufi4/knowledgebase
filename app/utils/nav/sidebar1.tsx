@@ -8,8 +8,12 @@ import {
     BookOpenText,
     MoonIcon,
     SunIcon,
-    ChevronRightIcon,Headphones,UsersRound,Amphora, Newspaper,
-    BrainCircuit
+    ChevronRightIcon,
+    Headphones,
+    UsersRound,
+    Amphora,
+    Newspaper,
+    BrainCircuit,
 } from 'lucide-react'
 
 interface SidebarProps {
@@ -27,18 +31,32 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
     const menuItems = [
         { icon: HomeIcon, label: 'Overview', href: '/dashboard/overview' },
         { icon: BookOpenText, label: 'Knowledgebase', href: '/knowledgebase' },
-        { icon: BrainCircuit, label: 'KitsoAI', href: '/dashboard/kitsoai',badge: 'Beta', },
+        {
+            icon: BrainCircuit,
+            label: 'KitsoAI',
+            href: '/dashboard/kitsoai',
+            badge: 'Beta',
+        },
         {
             icon: UsersRound,
             label: 'Cultures',
             href: '/cultures',
             badge: 'Beta',
         },
-        { icon: Newspaper, label: 'Articles', href: '/articles',badge: 'Beta', },
-        { icon: Amphora, label: 'Artifacts', href: '/artifacts',badge: 'Beta', },
-        { icon: Headphones, label: 'Support', href: '/support',badge: 'Beta', },
-        { icon: CogIcon, label: 'Settings', href: '/settings',badge: 'Beta', },
-
+        {
+            icon: Newspaper,
+            label: 'Articles',
+            href: '/dashboard/articles',
+            badge: 'Beta',
+        },
+        {
+            icon: Amphora,
+            label: 'Artifacts',
+            href: '/artifacts',
+            badge: 'Beta',
+        },
+        { icon: Headphones, label: 'Support', href: '/support', badge: 'Beta' },
+        { icon: CogIcon, label: 'Settings', href: '/settings', badge: 'Beta' },
     ]
 
     return (
