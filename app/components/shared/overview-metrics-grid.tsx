@@ -97,29 +97,29 @@ export default function OverviewMetricsGrid() {
     ]
     return (
         <div className="p-6 space-y-6">
-             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {metricsData.map((metric, index) => (
-                <div
-                    key={index}
-                    className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border dark:border-gray-700 hover:shadow-lg transition-all"
-                >
-                    <div className="flex items-center space-x-4">
-                        {metric.icon && (
-                            <metric.icon
-                                className={`w-8 h-8 ${metric.color}`}
-                            />
-                        )}
-                        <div>
-                            <p className="text-sm text-gray-500 dark:text-gray-400">
-                                {metric.label}
-                            </p>
-                            <p className="text-2xl font-bold text-gray-800 dark:text-gray-200">
-                                {metric.count}
-                            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {metricsData.map((metric, index) => (
+                    <div
+                        key={index}
+                        className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 border dark:border-gray-700 hover:shadow-lg transition-all"
+                    >
+                        <div className="flex items-center space-x-4">
+                            {metric.icon && (
+                                <metric.icon
+                                    className={`w-8 h-8 ${metric.color}`}
+                                />
+                            )}
+                            <div>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    {metric.label}
+                                </p>
+                                <p className="text-2xl font-bold text-gray-800 dark:text-gray-200">
+                                    {metric.count}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
             </div>
         </div>
     )

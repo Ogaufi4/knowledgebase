@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+### TODO:
+- Mobile screen configs
+- Popovers in the sidebar
+[text](https://mui.com/material-ui/react-popover/?srsltid=AfmBOoqOjYm5bHZNUBB1O2QGb-Kj9vv6-1pIizErnB8Cp4ElUmDA5NHt)
+[text](https://www.npmjs.com/package/@radix-ui/react-popover)
+
+[text](https://medium.com/@iambharathpadhu/mastering-popovers-building-an-accessible-popover-component-in-react-with-just-html-a6e95c0be2fb)
