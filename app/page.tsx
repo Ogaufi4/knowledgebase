@@ -5,6 +5,7 @@ import { HeroSection } from '@/app/components/shared/hero-section'
 import Chatbot from '@/app/components/chatbot'
 import { auth } from '@clerk/nextjs/server'
 import React from 'react'
+import ArticleSection from './components/articles/article-section'
 
 export default async function Home() {
     const { userId } = await auth()
@@ -16,7 +17,8 @@ export default async function Home() {
                 {/* <HomeNavigation/> */}
 
                 <HeroSection href={href} />
-
+                {/* featured articles */}
+                <ArticleSection/>
                 <CategoryGrid />
                 <Footer />
                 <Chatbot />

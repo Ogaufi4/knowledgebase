@@ -83,3 +83,58 @@ export const articles = [
       views: 876
   }
 ];
+
+export const recent_articles = [
+
+    {
+        id: '4',
+        title: 'Indigenous Knowledge Systems in Botswana’s Environmental Conservation',
+        excerpt: 'Exploring how traditional ecological knowledge among Batswana communities contributes to sustainable resource management and biodiversity preservation.',
+        category: 'Indigenous',
+        tags: ['Traditional Knowledge', 'Conservation', 'Sustainability'],
+        author: 'Dr. James Patel',
+        date: 'August 15, 2023',
+        views: 954
+    },
+    {
+        id: '5',
+        title: 'The Role of Artifacts in Understanding Botswana’s Pre-Colonial Societies',
+        excerpt: 'Analyzing how archaeological findings, such as pottery and rock paintings in Tsodilo Hills, provide insights into the social structures of ancient Botswana communities.',
+        category: 'Artifacts',
+        tags: ['Archaeology', 'Tsodilo Hills', 'History'],
+        author: 'Prof. Laura Martinez',
+        date: 'August 10, 2023',
+        views: 1247
+    },
+    {
+        id: '6',
+        title: 'Evolutionary Adaptations of Botswana’s Wildlife',
+        excerpt: 'Examining the unique physiological and behavioral adaptations that allow Botswana’s wildlife, such as the African elephant and cheetah, to thrive in diverse ecosystems.',
+        category: 'Animals',
+        tags: ['Wildlife', 'Evolution', 'Ecosystem'],
+        author: 'Dr. Robert Kim',
+        date: 'August 7, 2023',
+        views: 1582
+    },
+    {
+        id: '7',
+        title: 'Traditional Botanical Knowledge in Botswana’s Medicine',
+        excerpt: 'How local herbalists and traditional healers use indigenous plants to treat ailments and how modern medicine is integrating these remedies.',
+        category: 'Plants',
+        tags: ['Ethnobotany', 'Medicine', 'Traditional Knowledge'],
+        author: 'Dr. Olivia Thompson',
+        date: 'August 3, 2023',
+        views: 1105
+    },
+    {
+        id: '8',
+        title: 'Linguistic Patterns in Setswana Oral Traditions',
+        excerpt: 'A linguistic analysis of recurring structures in Botswana’s folktales, proverbs, and praise poetry and their cultural significance.',
+        category: 'Historical',
+        tags: ['Linguistics', 'Oral History', 'Setswana'],
+        author: 'Dr. Thomas Wilson',
+        date: 'July 28, 2023',
+        imageUrl: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1000',
+        views: 876
+    }
+  ];

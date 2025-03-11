@@ -47,6 +47,13 @@
         --input: 96 4% 27%;
         --ring: 206 100% 50%;
     }
+    h1 {
+        font-size: var(--text-2xl);
+      }
+      h2 {
+        font-size: var(--text-xl);
+      }
+
 }
 .faq-button {
     background: linear-gradient(90deg, #8000ff, #bd00ff);
@@ -90,3 +97,39 @@
         transform: translateY(100vh) rotate(720deg);
     }
 }
+
+
+@layer base {
+    * {
+      @apply border-border;
+    }
+
+    body {
+      @apply bg-background text-foreground;
+      font-feature-settings: "rlig" 1, "calt" 1;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      @apply tracking-tight;
+    }
+
+    h1 {
+      @apply text-4xl font-bold md:text-5xl lg:text-6xl;
+    }
+
+    h2 {
+      @apply text-3xl font-bold md:text-4xl;
+    }
+
+    h3 {
+      @apply text-2xl font-bold md:text-3xl;
+    }
+
+    h4 {
+      @apply text-xl font-semibold md:text-2xl;
+    }
+
+    h5 {
+      @apply text-lg font-semibold md:text-xl;
+    }
+  }
