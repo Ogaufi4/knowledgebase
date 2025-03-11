@@ -1,23 +1,20 @@
 // import prisma from '@/lib/prisma'
-const createURL = (path:string) => window.location.origin + path
-
+const createURL = (path: string) => window.location.origin + path
 
 export const newEntry = async () => {
     const res = await fetch(
-      new Request(createURL('/api/onboarding'), {
-        method: 'POST',
-        // body: JSON.stringify({ content: 'new entry' }),
-      })
+        new Request(createURL('/api/onboarding'), {
+            method: 'POST',
+            // body: JSON.stringify({ content: 'new entry' }),
+        })
     )
 
     if (res.ok) {
-      return res.json()
+        return res.json()
     } else {
-      throw new Error('Something went wrong on API server!')
+        throw new Error('Something went wrong on API server!')
     }
-  }
-
-
+}
 
 // type OnboardingInput = {
 //     researchPurpose: string;
