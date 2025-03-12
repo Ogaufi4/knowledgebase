@@ -6,6 +6,8 @@ import Chatbot from '@/app/components/chatbot'
 import { auth } from '@clerk/nextjs/server'
 import React from 'react'
 import ArticleSection from './components/articles/article-section'
+import CategoryStatsSection from './components/shared/category-stats-section'
+import RecentArticlesSection from './components/articles/recent-articles-section'
 
 export default async function Home() {
     const { userId } = await auth()
@@ -19,7 +21,11 @@ export default async function Home() {
                 <HeroSection href={href} />
                 {/* featured articles */}
                 <ArticleSection/>
-                <CategoryGrid />
+                {/* categories */}
+<CategoryStatsSection/>
+                {/* recent articles */}
+                <RecentArticlesSection/>
+
                 <Footer />
                 <Chatbot />
             </div>

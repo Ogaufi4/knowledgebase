@@ -138,3 +138,40 @@ export const recent_articles = [
         views: 876
     }
   ];
+
+
+  export const featuredArticles = [
+    {
+        id: '1',
+        title: 'The Influence of Tswana Architecture on Modern Design',
+        excerpt: 'Examining how traditional Tswana architectural elements, such as rondavels and thatched roofs, continue to inspire contemporary home and building designs in Botswana.',
+        category: 'Historical',
+        tags: ['Architecture', 'Tswana Culture', 'Design History'],
+        author: 'Dr. Kabelo Mpho',
+        date: 'June 15, 2023',
+        imageUrl: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?q=80&w=1000',
+        views: 3245
+    },
+    {
+        id: '2',
+        title: 'Medicinal Properties of Indigenous Plants in Botswana',
+        excerpt: 'An exploration of the healing potential of local plants such as Sengaparile (Devil’s Claw) and Moringa, and their traditional uses in Setswana medicine.',
+        category: 'Plants',
+        tags: ['Botany', 'Medicine', 'Traditional Healing'],
+        author: 'Prof. Michael Chen',
+        date: 'August 3, 2023',
+        views: 2187
+    },
+    {
+        id: '3',
+        title: 'Migration Patterns of Botswana’s Birdlife in Response to Climate Change',
+        excerpt: 'Analyzing shifts in migration routes and behaviors of Botswana’s bird species such as the Kori Bustard and the African Fish Eagle due to environmental changes.',
+        category: 'Birds',
+        tags: ['Wildlife', 'Climate Change', 'Bird Migration'],
+        author: 'Dr. Sarah Jacobson',
+        date: 'July 22, 2023',
+        imageUrl: 'https://images.unsplash.com/photo-1551730459-92db2a308d6a?q=80&w=1000',
+        views: 1893
+    },
+
+  ];
