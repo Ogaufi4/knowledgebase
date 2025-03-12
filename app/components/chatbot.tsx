@@ -1,6 +1,6 @@
 'use client'
+import React, { useState, useEffect, useRef } from "react";
 
-import React, { useState } from 'react'
 
 // Chatbot Component
 const Chatbot: React.FC = () => {
@@ -14,6 +14,14 @@ const Chatbot: React.FC = () => {
 
     // Toggle chat visibility
     const toggleChat = () => setIsOpen(!isOpen)
+
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [messages]);    
 
     // Handle sending user messageaaaaaa
     const handleSendMessage = async (event: React.FormEvent) => {
@@ -93,7 +101,7 @@ const Chatbot: React.FC = () => {
             {/* Button to open/close chat */}
             <button
                 id="openChatBtn"
-                className="fixed bottom-4 right-4 inline-flex items-center justify-center text-sm font-medium disabled:pointer-events-none disabled:opacity-50 border rounded-full w-16 h-16 bg-black hover:bg-gray-700 m-0 cursor-pointer border-gray-200 bg-none p-0 normal-case leading-5 hover:text-gray-900"
+                className="fixed bottom-2 right-2 inline-flex items-center justify-center text-sm font-medium disabled:pointer-events-none disabled:opacity-50 border rounded-full w-16 h-16 bg-black hover:bg-gray-700 m-0 cursor-pointer border-gray-200 bg-none p-0 normal-case leading-5 hover:text-gray-900 overflow-y-auto"
                 type="button"
                 onClick={toggleChat}
             >
@@ -120,7 +128,7 @@ const Chatbot: React.FC = () => {
             {isOpen && (
                 <div
                     id="chatContainer"
-                    className="fixed bottom-[calc(4rem+1.5rem)] right-0 mr-4 bg-white p-6 rounded-lg border border-[#e5e7eb] w-[440px] h-[634px]"
+                    className="fixed bottom-[calc(3.5rem)] right-9 mr-4 bg-white p-6 rounded-lg border border-[#e5e7eb] md:w-[400px] md:h-[550px] w-[440px] h-[634px]"
                 >
                     {/* Heading */}
                     <div className="flex flex-col space-y-1.5 pb-6">
@@ -128,15 +136,15 @@ const Chatbot: React.FC = () => {
                             Kitso Ai
                         </h2>
                         <p className="text-sm text-[#6b7280] leading-3">
-                            Powered by openAi and Ditso
+                            Powered by openAi and KitsoAi
                         </p>
                     </div>
 
                     {/* Chat Messages */}
                     <div
                         id="chatMessages"
-                        className="pr-4 h-[474px] overflow-y-auto"
-                        style={{ minWidth: '100%', display: 'table' }}
+                        className="pr-4 md:h-[405px] h-[474px] overflow-y-hidden"
+                        style={{ }}
                     >
                         {messages.map((message, index) => (
                             <div
@@ -145,7 +153,7 @@ const Chatbot: React.FC = () => {
                                 style={{
                                     textAlign:
                                         message.sender === 'You'
-                                            ? 'right'
+                                            ? 'justify'
                                             : 'left',
                                 }}
                             >
@@ -177,6 +185,7 @@ const Chatbot: React.FC = () => {
                                 </p>
                             </div>
                         ))}
+                        <div ref={messagesEndRef} />
                     </div>
 
                     {/* Input Box */}
