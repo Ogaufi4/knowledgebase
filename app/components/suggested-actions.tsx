@@ -59,7 +59,7 @@ function PureSuggestedActions({ appendAndTrigger }: SuggestedActionsProps) {
                   content: suggestedAction.action,
                 });
               }}
-              className="text-left border rounded-xl px-4 py-3.5 text-sm flex-1 gap-1 md:h-[60px] sm:flex-col w-full h-auto justify-start items-start"
+              className="md:pb-5 text-left border rounded-xl px-4 py-3.5 text-sm flex-1 gap-1 lg:h-[70px] md:h-[60px] sm:flex-col w-full h-auto justify-start items-start"
             >
               <span className="font-medium">{suggestedAction.title}</span>
               <span className="text-muted-foreground">
