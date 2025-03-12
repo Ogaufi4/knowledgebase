@@ -89,10 +89,10 @@ export default function KitsoAIPage() {
             <div className="flex flex-col flex-1 overflow-y-auto p-4 bg-gray-100 dark:bg-gray-800">
                 <div
                     id="chatContainer"
-                    className="flex flex-col flex-1 top-10 bg-white p-6 rounded-lg border border-[#e5e7eb] w-full h-full"
+                    className="flex flex-col flex-1 top-10 bg-white p-4 rounded-lg border border-[#e5e7eb] w-full h-full"
                 >
                     {/* Heading */}
-                    <div className="flex flex-col space-y-1.5 pb-6">
+                    <div className="flex flex-col space-y-1 pb-0">
                         <h2 className="font-semibold text-lg tracking-tight">Kitso Ai</h2>
                         <p className="text-sm text-[#6b7280] leading-3">
                             Powered by openAi and KitsoAi
@@ -149,7 +149,7 @@ export default function KitsoAIPage() {
                     )}
 
                     {/* Input Box */}
-                    <div className="flex items-center pt-0">
+                    <div className="flex items-center pt-0 ">
                         <form
                             id="chatForm"
                             className="flex items-center justify-center w-full space-x-2"
