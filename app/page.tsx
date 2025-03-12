@@ -18,20 +18,21 @@ export default async function Home() {
         <div className="min-h-screen flex flex-col ">
 
 
-                {/* <HomeNavigation/> */}
-                <HomeNavigation/>
+            {/* <HomeNavigation/> */}
+            <HomeNavigation />
 
             <main className="flex-grow">
 
                 {/* TODO: update the hero section */}
                 <HeroSection href={href} />
                 {/* featured articles */}
-                <ArticleSection/>
+                <ArticleSection />
                 {/* categories */}
-<CategoryStatsSection/>
+                <CategoryStatsSection />
                 {/* recent articles */}
-                <RecentArticlesSection/>
+                <RecentArticlesSection />
 
+                {/* footer */}
                 <Footer />
                 <Chatbot />
             </main>

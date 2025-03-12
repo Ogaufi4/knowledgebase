@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Button } from '@/app/components/ui/button'
 import { heroData } from '@/lib/hero_data'
 import { ArrowRight } from 'lucide-react'
+import { number } from 'zod'
+import { Label } from 'recharts'
 
 export function HeroSection() {
     return (
@@ -22,23 +24,23 @@ export function HeroSection() {
 
 
                     <h1 className="mb-6 animate-slide-down" style={{ animationDelay: '0.1s' }}>
-            {heroData.title}
-          </h1>
-          <p className="text-xl text-foreground/80 mb-10 max-w-2xl mx-auto animate-slide-down" style={{ animationDelay: '0.2s' }}>
-       {heroData.subDescription}
-          </p>
+                        {heroData.title}
+                    </h1>
+                    <p className="text-xl text-foreground/80 mb-10 max-w-2xl mx-auto animate-slide-down" style={{ animationDelay: '0.2s' }}>
+                        {heroData.subDescription}
+                    </p>
 
-          {/* hero buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 animate-slide-down" style={{ animationDelay: '0.3s' }}>
-            <Button asChild size='lg' className='text-base rounded-3xl'>
-                <Link href='/browse'>
-                {heroData.buttons[0].label} <ArrowRight className='ml-2 h-4 w-4'/></Link>
-            </Button>
-            <Button asChild size='lg' variant='outline' className='text-base rounded-3xl'>
-                <Link href='/contribute'>
-                {heroData.buttons[1].label}</Link>
-            </Button>
-          </div>
+                    {/* hero buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 animate-slide-down" style={{ animationDelay: '0.3s' }}>
+                        <Button asChild size='lg' className='text-base rounded-3xl'>
+                            <Link href='/browse'>
+                                {heroData.buttons[0].label} <ArrowRight className='ml-2 h-4 w-4' /></Link>
+                        </Button>
+                        <Button asChild size='lg' variant='outline' className='text-base rounded-3xl'>
+                            <Link href='/contribute'>
+                                {heroData.buttons[1].label}</Link>
+                        </Button>
+                    </div>
 
                 </div>
             </div>
@@ -50,6 +52,24 @@ export function HeroSection() {
                     className="h-full w-full object-cover "
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background/60" />
+            </div>
+
+            {/* Static stats section */}
+            <div className='container px-4 mx-auto mt-24'>
+               <div className='grid grid-cols-2 md:grid-cols-4 gap-8'>
+               {[{number:'10K+', label:'Articles'},
+                    {number:'1K+', label:'Verifiers'},
+                    {number:'12K+', label:'Contributors'},
+                    {number:'80%', label:'Satisfaction'}
+                ].map((stat, index) =>(
+                    <div key={index}
+                    className='text-center animate-slide-up'
+                    style={{animationDelay:`${0.4 + index*0.1}s`}}>
+                        <p className='text-4xl font-bold text-primary mb-2'>{stat.number}</p>
+                        <p className='text-sm text-foreground/70'>{stat.label}</p>
+                    </div>
+                ))}
+               </div>
             </div>
 
             {/* <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-28 sm:pb-32 lg:flex lg:px-8 lg:py-48">
