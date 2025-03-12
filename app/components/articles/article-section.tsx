@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { recent_articles } from '@/app/utils/mock/articles'
+import { featuredArticles } from '@/app/utils/mock/articles'
 import ArticleCard from './article-card'
 
 
@@ -30,7 +30,7 @@ export default function ArticleSection() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {recent_articles.map((article, index) => (
+                    {featuredArticles.map((article, index) => (
                         <ArticleCard
                             key={article.id}
                             {...article}
