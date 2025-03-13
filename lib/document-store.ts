@@ -1,29 +1,22 @@
-import { Document } from 'langchain/document'
-import { MemoryVectorStore } from 'langchain/vectorstores/memory'
-import { OpenAIEmbeddings } from 'langchain/embeddings/openai'
-import { CharacterTextSplitter } from 'langchain/text_splitter'
-import { PDFLoader } from 'langchain/document_loaders/pdf'
+import { MemoryVectorStore } from 'langchain/vectorstores/memory';
+import { OpenAIEmbeddings } from '@langchain/openai';
+import { CharacterTextSplitter } from 'langchain/text_splitter';
+import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf';
 
-//define the store
-export const createStore = (docs: Document[]) =>
-    MemoryVectorStore.fromDocuments(docs, new OpenAIEmbeddings())
+export async function loadStore(documentPath: string) {
+    const loader = new PDFLoader(documentPath);
+    const docs = await loader.load();
 
-// pdf loader
-export const docsFromPDF = async (pdfPath: string) => {
-    const loader = new PDFLoader(pdfPath)
+    const splitter = new CharacterTextSplitter({
+        chunkSize: 1000,
+        chunkOverlap: 200,
+    });
 
-    return loader.loadAndSplit(
-        new CharacterTextSplitter({
-            separator: '. ',
-            chunkSize: 2500,
-            chunkOverlap: 200,
-        })
-    )
-}
+    const splitDocs = await splitter.splitDocuments(docs);
 
-//load store
-export const loadStore = async (pdfPath: string) => {
-    const pdfDocs = await docsFromPDF(pdfPath)
-
-    return createStore(pdfDocs)
+    const store = await MemoryVectorStore.fromDocuments(
+        splitDocs,
+        new OpenAIEmbeddings({ apiKey: process.env.OPENAI_API_KEY })
+    );
+    return store;
 }

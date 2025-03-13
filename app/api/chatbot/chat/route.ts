@@ -1,21 +1,35 @@
-import { NextResponse } from 'next/server'
-import { getmedChatResponse } from '@/lib/medicine-chat'
+import { NextResponse } from 'next/server';
+import { getChatResponse } from '@/lib/openai';
+import { getmedChatResponse } from '@/lib/medicine-chat';
 
 export async function POST(request: Request) {
     try {
-        const { question } = await request.json()
+        const { messages, category } = await request.json();
+        const userMessage = messages[messages.length - 1].content.toLowerCase();
+        const documentPath = 'public/documents/botswana-plants.pdf';
+        const isPlantRelated = /plants?|indigenous plants?|botswana plants?|medicinal plants?/i.test(userMessage);
 
-        // In production, you'd want to handle document paths more securely
-        const documentPath = 'public/documents/botswana-plants.pdf'
-
-        const response = await getmedChatResponse(question, documentPath)
-
-        return NextResponse.json(response)
+        if (isPlantRelated) {
+            const { content, sources } = await getmedChatResponse(userMessage, documentPath);
+            return NextResponse.json({
+                message: content,
+                source: sources[0] || 'botswana-plants.pdf',
+            });
+        } else {
+            const systemMessage = {
+                role: 'system',
+                content: `You are KitsoAI, an expert on Botswana's indigenous knowledge, specifically about ${category}.
+                    Provide accurate, culturally sensitive information based on traditional knowledge.
+                    Keep responses concise and informative.`,
+            };
+            const response = await getChatResponse([systemMessage, ...messages]);
+            return NextResponse.json({
+                message: response,
+                source: 'General knowledge',
+            });
+        }
     } catch (error) {
-        console.error('Plant Chat API error:', error)
-        return NextResponse.json(
-            { error: 'Failed to get response from MedicineBot' },
-            { status: 500 }
-        )
+        console.error('Chat API error:', error);
+        return NextResponse.json({ error: 'Failed to get response from AI' }, { status: 500 });
     }
 }
