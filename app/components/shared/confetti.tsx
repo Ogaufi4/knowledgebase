@@ -5,7 +5,7 @@ const COLOR_DIGIT = 'ABCDEF1234567890'
 
 const ConfettiButton = () => {
     const [isConfettiActive, setConfettiActive] = useState(false)
-    const containerRef = useRef(null)
+    const containerRef = useRef<HTMLDivElement>(null)
     useEffect(() => {
         if (isConfettiActive) {
             generateConfetti()
