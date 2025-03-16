@@ -25,7 +25,9 @@ export default function QuizApp() {
     const [currentLevel, setCurrentLevel] = useState(0)
     const { chosenQuestion: question, options } =
         useRandomQuestion(currentLevel)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [answerChecked, setAnswerChecked] = useState(false)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [showResults, setShowResults] = useState(false)
     const [quizResult, setQuizResult] = useState({
         score: 0,
@@ -36,12 +38,13 @@ export default function QuizApp() {
     const maxLevel = 2
     const quizItem = question
     const quizQuestion = quizItem?.phrase
-
-    const [audio, state, controls, ref] = useAudio({
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [audio, _state, controls, _ref] = useAudio({
         src: 'http://localhost:3000/Win%20sound.wav',
         autoPlay: false,
     })
-    const [wrong_audio, wrong_state, wrong_controls, wrong_ref] = useAudio({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [wrong_audio, _wrong_state, wrong_controls, _wrong_ref] = useAudio({
         src: 'http://localhost:3000/wrong.mp3',
         autoPlay: false,
     })

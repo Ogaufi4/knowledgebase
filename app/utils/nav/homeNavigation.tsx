@@ -2,7 +2,7 @@
 
 import { Button } from '@/app/components/ui/button'
 import { cn } from '@/lib/utils';
-import { Menu, Search, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-use';

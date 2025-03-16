@@ -6,7 +6,7 @@ import ArticleCard from './article-card';
 import CategoryFilter from './category-filter';
 import ArticleSearchBar from './search-bar';
 import { usePathname } from 'next/navigation'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
@@ -50,6 +50,9 @@ export default function ArticleBrowse() {
 
     const handleSearch = (query: string, filters: Record<string, unknown>)=>{
         setSearchQuery(query)
+
+        //by pass eslint
+        console.log(filters)
         // implement handling filters
     }
     const pathname = usePathname()

@@ -1,4 +1,4 @@
-import OverviewMetricsGrid from '@/app/components/shared/overview-metrics-grid'
+
 import { CategoryBreakdown } from '@/app/components/shared/overview/category-breakdown'
 import { DataDistributionChart } from '@/app/components/shared/overview/data-distribution-chart'
 import { DataSourceMap } from '@/app/components/shared/overview/data-source-map'
@@ -34,25 +34,10 @@ export default function DashboardOverview() {
                             Research Knowledge Base
                         </h1>
                     </div>
-                    {/* <div className="flex items-center gap-4">
-            <div className="relative w-full max-w-sm">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search across all data..."
-                className="w-full bg-background pl-8 md:w-[300px] lg:w-[400px]"
-              />
-            </div>
-            <Button variant="outline" size="icon">
-              <Filter className="h-4 w-4" />
-              <span className="sr-only">Filter</span>
-            </Button>
-            <Button>Advanced Search</Button>
-          </div> */}
+
                 </div>
             </header>
             <main className="flex-1 space-y-4 p-4 md:p-8">
-                {/* <OverviewMetricsGrid /> */}
                 <OverviewGridMetrics />
                 <Tabs
                     defaultValue="overview"
