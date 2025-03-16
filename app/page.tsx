@@ -3,7 +3,7 @@
 import { Footer } from '@/app/components/shared/footer'
 import { HeroSection } from '@/app/components/shared/hero-section'
 import Chatbot from '@/app/components/chatbot'
-import { auth } from '@clerk/nextjs/server'
+// import { auth } from '@clerk/nextjs/server'
 import React from 'react'
 import ArticleSection from './components/articles/article-section'
 import CategoryStatsSection from './components/shared/category-stats-section'
@@ -11,8 +11,8 @@ import RecentArticlesSection from './components/articles/recent-articles-section
 import HomeNavigation from './utils/nav/homeNavigation'
 
 export default async function Home() {
-    const { userId } = await auth()
-    const href = userId ? '/dashboard' : '/sign-up'
+    // const { userId } = await auth()
+    // const href = userId ? '/dashboard' : '/sign-up'
     // const href = userId ? '/onboarding' : '/sign-up'
     return (
         <div className="min-h-screen flex flex-col ">
@@ -24,7 +24,9 @@ export default async function Home() {
             <main className="flex-grow">
 
                 {/* TODO: update the hero section */}
-                <HeroSection href={href} />
+                {/* <HeroSection href={href} /> */}
+
+                <HeroSection/>
                 {/* featured articles */}
                 <ArticleSection />
                 {/* categories */}
