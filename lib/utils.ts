@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { Message, TextUIPart } from './types';
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -17,7 +18,7 @@ export function fillMessageParts(messages: Message[]): Message[] {
       parts: getMessageParts(message),
     }));
   }
-  
+
   export function getMessageParts(message: Message): (TextUIPart)[] {
     return (
       message.parts ?? [
