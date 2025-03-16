@@ -20,7 +20,7 @@ export function Footer() {
                             {/* <Logo size="sm" className="text-primary" /> */}
                         </Link>
                         <p className="text-sm text-muted-foreground">
-                            Preserving and sharing Botswana's knowledge for
+                            Preserving and sharing Botswana&apos;s knowledge for
                             future generations. Join our community of experts
                             and enthusiasts.
                         </p>

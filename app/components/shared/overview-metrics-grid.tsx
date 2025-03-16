@@ -57,7 +57,7 @@ export default function OverviewMetricsGrid() {
         }
 
         fetchMetrics()
-    }, [])
+    }, [overviewMetrics])
     const metricsData: DashboardMetric[] = [
         {
             icon: DatabaseIcon,

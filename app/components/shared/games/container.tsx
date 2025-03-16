@@ -1,6 +1,6 @@
 'use client'
 import { GameGrid } from './games_grid'
-import Link from 'next/link'
+// import Link from 'next/link'
 import React from 'react'
 
 function Container() {

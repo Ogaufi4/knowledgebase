@@ -27,7 +27,7 @@ import {
 } from '../ui/select'
 import { Checkbox } from '../ui/checkbox'
 
-import { createNewOnboarding } from '@/lib/api'
+// import { createNewOnboarding } from '@/lib/api'
 import { redirect } from 'next/navigation'
 
 type OnboardingModalProps = {
@@ -101,7 +101,7 @@ export function OnboardingModal({
 
             redirect('/dashboard')
         } catch (error) {
-            console.error('Error submitting onboarding data:', error)
+            console.error('Error submitting onboarding data:', error,data)
         } finally {
             setIsSubmitting(false)
         }

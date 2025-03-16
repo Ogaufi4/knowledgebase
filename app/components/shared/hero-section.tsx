@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { Button } from '@/app/components/ui/button'
 import { heroData } from '@/lib/hero_data'
 import { ArrowRight } from 'lucide-react'
-import { number } from 'zod'
-import { Label } from 'recharts'
+// import { number } from 'zod'
+// import { Label } from 'recharts'
 
 export function HeroSection() {
     return (

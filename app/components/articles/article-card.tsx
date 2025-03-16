@@ -33,6 +33,9 @@ export default function ArticleCard({
     variant = 'featured',
 }: ArticleCardProps) {
     const isFeatured = variant === 'featured'
+
+    //to implement tags
+    console.log(tags)
     return (
         <div
             className={cn(
@@ -71,7 +74,10 @@ export default function ArticleCard({
                 imageUrl ? "border-white/40 text-white" : "text-foreground",
                 "rounded-md"
               )}
-            ></Badge>
+            >
+{category}
+
+            </Badge>
 
             <div className='flex items-center text-sm opacity-80'>
               <Eye className='h-3.5 w-3.5 mr-1'/>
@@ -91,7 +97,7 @@ export default function ArticleCard({
 
             </Link>
 
-            {/* summary and authoer */}
+            {/* summary and auther */}
             <p className={cn(
             'mb-4 line-clamp-2',
             imageUrl ? 'text-white/80' : 'text-muted-foreground',

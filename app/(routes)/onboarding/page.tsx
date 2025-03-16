@@ -1,7 +1,7 @@
 'use client'
 
 import { OnboardingModal } from '@/app/components/onboading/OnboardingModal'
-import { PageHeader } from '@/app/components/shared/page-header'
+// import { PageHeader } from '@/app/components/shared/page-header'
 import { Button } from '@/app/components/ui/button'
 import { useState } from 'react'
 

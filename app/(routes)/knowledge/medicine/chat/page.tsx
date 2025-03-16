@@ -57,7 +57,9 @@ export default function KitsoChatPage() {
                 if (!response.ok) throw new Error('Failed to get response')
 
                 const data = await response.json()
-                const assistantMessage = {
+
+                // bypass eslint
+                const assistantMessage: Message = {
                     role: 'assistant',
                     content: data.message.content,
                 }
@@ -65,6 +67,7 @@ export default function KitsoChatPage() {
                 setMessages((prev) => [...prev, assistantMessage])
                 setHighlightedIndex(messages.length) // Highlight the new response
             } catch (error) {
+                console.log(error)
                 toast({
                     title: 'Error',
                     description:

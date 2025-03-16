@@ -1,17 +1,17 @@
 import React from 'react'
-import { PlusIcon, BellIcon, UserCircleIcon, MenuIcon } from 'lucide-react'
+import { BellIcon, } from 'lucide-react'
 import { UserButton } from '@clerk/nextjs'
 
 interface TopbarProps {
     username: string
     accountHostname: string
-    toggleSidebar: () => void
+    // toggleSidebar: () => void
 }
 
 const Topbar: React.FC<TopbarProps> = ({
     username,
     accountHostname,
-    toggleSidebar,
+    // toggleSidebar,
 }) => {
     return (
         <div className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 shadow-sm">
