@@ -5,13 +5,14 @@ import { UserButton } from '@clerk/nextjs'
 interface TopbarProps {
     username: string
     accountHostname: string
-    // toggleSidebar: () => void
+    toggleSidebar: () => void
 }
 
 const Topbar: React.FC<TopbarProps> = ({
     username,
     accountHostname,
-    // toggleSidebar,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    toggleSidebar,
 }) => {
     return (
         <div className="sticky top-0 z-40 flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-800 shadow-sm">
