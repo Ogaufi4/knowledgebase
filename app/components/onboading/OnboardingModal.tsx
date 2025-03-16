@@ -173,7 +173,7 @@ export function OnboardingModal({
                                                         field.onChange
                                                     }
                                                     defaultValue={field.value}
-                                                    autoFocus
+
                                                 >
                                                     <FormControl>
                                                         <SelectTrigger>
