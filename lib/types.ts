@@ -34,3 +34,13 @@ export interface Message {
      */
     text: string;
   };
+
+  export interface ArtifactType {
+    key: string
+    name: string
+  }
+
+  export interface CategoryType {
+    key: string
+    name: string
+  }
