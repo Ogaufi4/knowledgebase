@@ -19,6 +19,7 @@ import React, { useState } from 'react'
 // import toast from 'react-hot-toast';
 import { useDropzone } from 'react-dropzone'
 import Swal from "sweetalert2";
+import { string } from 'zod'
 // import withReactContent from "sweetalert2-react-content";
 
 
@@ -29,7 +30,23 @@ interface ExtendedFile extends File {
 export default function ContributionPage() {
   //  const {toast} = useToast();
   const [isUploading, setIsUploading] = useState(false);
+  //form data
+  const [articleTitle, setArticleTitle] = useState('');
+  const [articleCategory, setArticleCategory] = useState('');
+  const [articleAbstract, setArticleAbstract] = useState('');
+  const [articleContent, setArticleContent] = useState('');
+  const [articleTagInput, setArticleTagInput] = useState('');
+  const tags = articleTagInput.split(",").map((tag)=> tag.trim()).filter((tag) => tag);
   const [files, setFiles] = useState<ExtendedFile[]>([]);
+  const [articleTermsAccepted, setArticleTermsAccepted] = useState(false);
+
+
+
+  // const handlAddTag = () => {
+  //   console.log(">>Handling add tag")
+  // }
+
+
   const maxFiles = 5;
   const maxSize = 10 * 1024 * 1024;
   const showSwal = () => {
@@ -43,10 +60,59 @@ export default function ContributionPage() {
       timer: 2800
     });
   };
-  const handleSubmit = (e: React.FormEvent) => {
+
+
+
+  const handleSubmit = async(e: React.FormEvent) => {
+     //create form data
+      //connect to prisma to post data
+
+
+      //check if response is ok
+      //clear inputs
+      //display completion message
     e.preventDefault();
     // TODO: api-> handle form submission using
     setIsUploading(!isUploading);
+
+    const formData  = new FormData()
+    //update the submission schema
+    formData.append('articleTitle', articleTitle);
+    formData.append('articleCategory', articleCategory);
+    formData.append('articleAbstract', articleAbstract);
+    formData.append('articleContent', articleContent);
+    formData.append('tags', JSON.stringify(tags));
+    files.forEach((file) => {
+      formData.append('uploaded_images', file)
+    })
+
+    formData.append('articleTermsAccepted', (articleTermsAccepted ? "true": "false"));
+
+
+    try {
+
+        // create an api
+        const response = await fetch("",{
+          method:"POST",
+          headers:{
+            "Content-Type": 'application/json'
+          },
+          body: JSON.stringify(formData)
+        })
+
+        if(response.ok){
+          console.log(">>> Submission is ok >>>")
+          showSwal();
+
+        }else{
+          throw new Error("Submission Failed")
+        }
+
+    } catch (error) {
+      console.log(">>>> API error >>>>>", error)
+
+
+    }
 
     console.log(">>>>>>>Submission>>>>>>");
     //  toast.success( "Thank you for your contribution! Your submission id being reviewed. An email will be send once cleared",
@@ -65,9 +131,6 @@ export default function ContributionPage() {
     { key: 'other', name: 'Other' },
   ]
 
-  const handlAddTag = () => {
-    console.log(">>Handling add tag")
-  }
 
   const { getRootProps, getInputProps, isDragReject } = useDropzone({
     accept: {
@@ -176,7 +239,7 @@ export default function ContributionPage() {
                       <Badge variant="secondary">research</Badge>
                       <Badge variant="secondary">history</Badge>
                       <Badge variant="secondary">science</Badge>
-                      <Badge variant="outline" className="cursor-pointer hover:bg-secondary" onClick={handlAddTag}>+ Add</Badge>
+                      {/* <Badge variant="outline" className="cursor-pointer hover:bg-secondary" onClick={handlAddTag}>+ Add</Badge> */}
                     </div>
                   </div>
 
