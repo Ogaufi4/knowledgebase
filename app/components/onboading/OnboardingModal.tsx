@@ -79,9 +79,9 @@ export function OnboardingModal({
             form.setValue('organization', orgName)
         }
     })
-    console.log(form)
-    console.log(onClose)
-    console.log(userEmail, step)
+    // console.log(form)
+    // console.log(onClose)
+    // console.log(userEmail, step)
     if (!isOpen) return null
     const interestOptions = [
         { label: 'Indigenous Knowledge', value: 'indigenous-knowledge' },
@@ -97,7 +97,7 @@ export function OnboardingModal({
     const onSubmit = async (data: z.infer<typeof OnboardingFormSchema>) => {
         setIsSubmitting(true)
         try {
-            // await createNewOnboarding(data)
+            //await createNewOnboarding(data)
 
             redirect('/dashboard')
         } catch (error) {

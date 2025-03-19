@@ -11,6 +11,7 @@ import { Textarea } from '@/app/components/ui/textarea'
 // import { toast } from '@/app/hooks/use-toast'
 // import { useToast } from '@/app/hooks/use-toast'
 import HomeNavigation from '@/app/utils/nav/homeNavigation'
+import { createNewSubmit } from '@/lib/api'
 import { CategoryType } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { isDragActive } from 'framer-motion'
@@ -19,7 +20,9 @@ import React, { useState } from 'react'
 // import toast from 'react-hot-toast';
 import { useDropzone } from 'react-dropzone'
 import Swal from "sweetalert2";
-import { string } from 'zod'
+
+// import { NextResponse } from 'next/server'
+// import prisma from '@/lib/prisma'
 // import withReactContent from "sweetalert2-react-content";
 
 
@@ -36,7 +39,7 @@ export default function ContributionPage() {
   const [articleAbstract, setArticleAbstract] = useState('');
   const [articleContent, setArticleContent] = useState('');
   const [articleTagInput, setArticleTagInput] = useState('');
-  const tags = articleTagInput.split(",").map((tag)=> tag.trim()).filter((tag) => tag);
+  const tags = articleTagInput.split(",").map((tag) => tag.trim()).filter((tag) => tag);
   const [files, setFiles] = useState<ExtendedFile[]>([]);
   const [articleTermsAccepted, setArticleTermsAccepted] = useState(false);
 
@@ -63,62 +66,72 @@ export default function ContributionPage() {
 
 
 
-  const handleSubmit = async(e: React.FormEvent) => {
-     //create form data
-      //connect to prisma to post data
+  const handleSubmit = async (e: React.FormEvent) => {
+    //create form data
+    //connect to prisma to post data
 
 
-      //check if response is ok
-      //clear inputs
-      //display completion message
+    //check if response is ok
+    //clear inputs
+    //display completion message
     e.preventDefault();
     // TODO: api-> handle form submission using
     setIsUploading(!isUploading);
-
-    const formData  = new FormData()
-    //update the submission schema
-    formData.append('articleTitle', articleTitle);
-    formData.append('articleCategory', articleCategory);
-    formData.append('articleAbstract', articleAbstract);
-    formData.append('articleContent', articleContent);
-    formData.append('tags', JSON.stringify(tags));
-    files.forEach((file) => {
-      formData.append('uploaded_images', file)
-    })
-
-    formData.append('articleTermsAccepted', (articleTermsAccepted ? "true": "false"));
-
-
+    // const createURL = (path: string) => window.location.origin + path
     try {
+      const formData = new FormData()
+      //update the submission schema
+      formData.append('articleTitle', articleTitle);
+      formData.append('articleCategory', articleCategory);
+      formData.append('articleAbstract', articleAbstract);
+      formData.append('articleContent', articleContent);
+      formData.append('tags', JSON.stringify(tags));
+      files.forEach((file) => {
+        formData.append('uploaded_files', file)
+      })
 
-        // create an api
-        const response = await fetch("",{
-          method:"POST",
-          headers:{
-            "Content-Type": 'application/json'
-          },
-          body: JSON.stringify(formData)
-        })
+      formData.append('articleTermsAccepted', (articleTermsAccepted ? "true" : "false"));
 
-        if(response.ok){
-          console.log(">>> Submission is ok >>>")
-          showSwal();
+      console.log(">>>>Ext>>>>>",formData.getAll('uploaded_files'))
+      await createNewSubmit(formData)
+      // await createNewSubmit({
+      //   articleTitle: formData.get('articleTitle') as string,
+      //   articleCategory: formData.get('articleCategory') as string,
+      //   articleAbstract: formData.get('articleAbstract') as string,
+      //   articleContent: formData.get('articleContent') as string,
+      //   articleTermsAccepted: formData.get('articleTermsAccepted') === "true",
+      //   tags: JSON.parse(formData.get('tags') as string),
+      //   files: formData.getAll('uploaded_files') as string[]
+      // })
 
-        }else{
-          throw new Error("Submission Failed")
-        }
+    //  await prisma.submission.create({
+    //    data: {
+    //         articleTitle: formData.get('articleTitle') as string || '',
+    //         articleCategory: formData.articleCategory, // TypeScript cast to enum type
+    //         articleAbstract: formData.articleAbstract,
+    //         articleContent: formData.articleContent,
+    //       tags: formData.tags,
+    //       files: formData.uploaded_images,
+    //       articleTermsAccepted: formData.termsAccepted === "true"? true : false,
+    //     },
+
+    //   });
+
+       showSwal();
+
+      // if (response.ok) {
+
+      //   console.log(">>>>>>>>>>>>> Submission Data Response >>>>>>>>>>> ", response)
+      //   setIsUploading(!isUploading);
+
+      // } else {
+      //   throw new Error("Submission Failed")
+      // }
 
     } catch (error) {
       console.log(">>>> API error >>>>>", error)
-
-
     }
 
-    console.log(">>>>>>>Submission>>>>>>");
-    //  toast.success( "Thank you for your contribution! Your submission id being reviewed. An email will be send once cleared",
-    //     )
-    showSwal()
-    setIsUploading(!isUploading);
   }
 
   const categoryTypes: CategoryType[] = [
@@ -187,12 +200,13 @@ export default function ContributionPage() {
                 <CardContent className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="title">Title <span className="text-destructive">*</span></Label>
-                    <Input id="title" placeholder="Enter a descriptive title" required />
+                    <Input id="title" placeholder="Enter a descriptive title" required
+                      onChange={(e) => setArticleTitle(e.target.value)} />
                   </div>
                   {/* categories */}
                   <div className='space-y-2'>
-                    <Label htmlFor="category">Category <span className='text-destructive'>*</span></Label>
-                    <Select>
+                    <Label>Category <span className='text-destructive'>*</span></Label>
+                    <Select onValueChange={setArticleCategory} >
                       <SelectTrigger>
                         <SelectValue placeholder="Select a category" />
                       </SelectTrigger>
@@ -214,6 +228,7 @@ export default function ContributionPage() {
                       placeholder="Provide a brief summary of your contribution"
                       className="min-h-[120px]"
                       required
+                      onChange={(e) => setArticleAbstract(e.target.value)}
                     />
                   </div>
 
@@ -225,6 +240,7 @@ export default function ContributionPage() {
                       placeholder="Enter the full content of your submission"
                       className="min-h-[200px]"
                       required
+                      onChange={(e) => setArticleContent(e.target.value)}
                     />
                   </div>
 
@@ -234,6 +250,7 @@ export default function ContributionPage() {
                     <Input
                       id="tags"
                       placeholder="Enter tags separated by commas (e.g., research, history, science)"
+                      onChange={(e) => setArticleTagInput(e.target.value)}
                     />
                     <div className="flex flex-wrap gap-2 pt-2">
                       <Badge variant="secondary">research</Badge>
@@ -328,7 +345,10 @@ export default function ContributionPage() {
 
                   <div className='pt-4 border-t'>
                     <div className='flex items-start'>
-                      <input type="checkbox" id="terms" required className='mr-2 mt-1' />
+                      <input type="checkbox" id="terms" required className='mr-2 mt-1'
+                        checked={articleTermsAccepted}
+                        onChange={(e) => setArticleTermsAccepted(e.target.checked)}
+                      />
                       <Label htmlFor='terms' className='text-sm font-normal'>
                         I confirm that this content is original or properly attributed and I agree to the
                         <a href='#' className='ml-1 hover:underline text-primary'> Terms and Conditions</a>
