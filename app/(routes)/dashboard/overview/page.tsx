@@ -34,7 +34,7 @@ export default function DashboardOverview() {
                             Research Knowledge Base
                         </h1>
                     </div>
-
+{/*  add contribute button*/}
                 </div>
             </header>
             <main className="flex-1 space-y-4 p-4 md:p-8">

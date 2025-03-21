@@ -16,13 +16,13 @@ datasource db {
 }
 
 model User {
-  id         String      @id @default(uuid())
-  email      String      @unique
-  clerkId    String      @unique
-  name       String?
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime?   @updatedAt
-  account    Account?
+  id        String    @id @default(uuid())
+  email     String    @unique
+  clerkId   String    @unique
+  name      String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  account   Account?
   // onboarding Onboarding?
   // onboarding   Onboarding? @relation(fields: [onboardingId], references: [id])
   // onboardingId String?
@@ -41,16 +41,39 @@ model Account {
 }
 
 model Onboarding {
-  id              String    @id @default(uuid())
+  id              String   @id @default(uuid())
   researchPurpose String?
   organization    String?
   interests       String[]
   termsAccepted   Boolean?
-  userId          String @unique
+  userId          String   @unique
   // user            User      @relation(fields: [userId], references: [id])
-  createdAt       DateTime  @default(now())
+  createdAt       DateTime @default(now())
 
   @@map("onboardings")
+}
+
+// Submission
+model Submission {
+  id                   String    @id @default(uuid())
+  articleTitle         String
+  articleCategory      String
+  articleAbstract      String
+  articleContent       String
+  tags                 Json?
+  files                Json?
+  articleTermsAccepted Boolean
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime? @updatedAt
+}
+
+enum Category {
+  ARTICLE
+  HISTORICAL_ARTIFACT
+  FLORA
+  FAUNA
+  INDIGENOUS_KNOWLEDGE
+  OTHER
 }
 
 // model Account {
