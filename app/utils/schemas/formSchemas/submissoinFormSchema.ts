@@ -2,6 +2,7 @@
 import {z} from 'zod'
 
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const fileSchema = z.object({
     name: z.string().min(1, "File name is required"),
     type: z.string().min(1, "File type is required"),

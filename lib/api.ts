@@ -1,4 +1,4 @@
-import { SubmissionFormData } from "@/app/utils/schemas/formSchemas/submissoinFormSchema"
+// import { SubmissionFormData } from "@/app/utils/schemas/formSchemas/submissoinFormSchema"
 
 type OnboardingInput = {
     researchPurpose?: string
@@ -29,7 +29,6 @@ export const createNewOnboarding = async (data?: OnboardingInput) => {
 
 export const createNewSubmit = async (data?: BodyInit) => {
     const createURL = (path: string) => window.location.origin + path
-console.log(">>>APi>>", data)
     const res = await fetch(
         new Request(createURL('/api/submit'), {
             method: 'POST',

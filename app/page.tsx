@@ -9,6 +9,7 @@ import ArticleSection from './components/articles/article-section'
 import CategoryStatsSection from './components/shared/category-stats-section'
 import RecentArticlesSection from './components/articles/recent-articles-section'
 import HomeNavigation from './utils/nav/homeNavigation'
+import ContributeSection from './components/shared/contribute-section'
 
 export default async function Home() {
     // const { userId } = await auth()
@@ -33,6 +34,8 @@ export default async function Home() {
                 <CategoryStatsSection />
                 {/* recent articles */}
                 <RecentArticlesSection />
+                {/* Contribute section */}
+                <ContributeSection/>
 
                 {/* footer */}
                 <Footer />
