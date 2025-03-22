@@ -3,7 +3,7 @@
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card'
 import { cn } from '@/lib/utils'
-import { Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 interface ChartCardProps {
     title: string;
@@ -16,7 +16,7 @@ interface ChartCardProps {
     dataKey: string;
     categoryKey: string;
     height?: number;
-  }
+}
 
 
 const ChartCard = ({
@@ -29,37 +29,37 @@ const ChartCard = ({
 
         switch (type) {
             case 'pie':
-                return(
+                return (
                     <ResponsiveContainer width="100%" height={height}>
                         <PieChart>
                             <Pie
-                            data={data}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={60}
-                            outerRadius={80}
-                            paddingAngle={2}
-                            dataKey={dataKey}
-                            nameKey={categoryKey}
-                            labelLine={false}
-                            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                                data={data}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={60}
+                                outerRadius={80}
+                                paddingAngle={2}
+                                dataKey={dataKey}
+                                nameKey={categoryKey}
+                                labelLine={false}
+                                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                             >
-                                {data.map((_, index)=>(
-                                    <Cell key={`cell-${index}`} fill={colors[index % colors.length]}/>
+                                {data.map((_, index) => (
+                                    <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                                 ))}
 
 
                             </Pie>
                             <Tooltip
-                            contentStyle={{
-                                backgroundColor:'rgba(255, 255, 255, 0.9)',
-                                border:'none',
-                                borderRadius:'6px',
-                                boxShadow:'0 4px 12px rgba(0.0.0.0.1)',
-                                padding:'8px 12px',
-                            }}
+                                contentStyle={{
+                                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    boxShadow: '0 4px 12px rgba(0.0.0.0.1)',
+                                    padding: '8px 12px',
+                                }}
                             />
-                            <Legend/>
+                            <Legend />
                         </PieChart>
 
                     </ResponsiveContainer>
@@ -68,42 +68,58 @@ const ChartCard = ({
 
 
             case 'line':
-                return(
+                return (
                     <ResponsiveContainer width="100%" height={height}>
-                        <LineChart data={data} margin={{top:10, right:10, left:0, bottom:20}}>
-                                <XAxis dataKey={categoryKey} tick={{fontSize:12}}/>
-                                <YAxis tick={{fontSize:12}}/>
+                        <LineChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
+                            <XAxis dataKey={categoryKey} tick={{ fontSize: 12 }} />
+                            <YAxis tick={{ fontSize: 12 }} />
                             <Tooltip
-                            contentStyle={{
-                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                border: 'none',
-                                borderRadius: '6px',
-                                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                                padding: '8px 12px',
-                            }}
+                                contentStyle={{
+                                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                                    padding: '8px 12px',
+                                }}
                             />
                             <Line
-                              type="monotone"
-                              dataKey={dataKey}
-                              stroke={colors[0]}
-                              strokeWidth={2}
-                              dot={{ strokeWidth: 2, r: 4 }}
-                              activeDot={{ strokeWidth: 0, r: 6 }}
+                                type="monotone"
+                                dataKey={dataKey}
+                                stroke={colors[0]}
+                                strokeWidth={2}
+                                dot={{ strokeWidth: 2, r: 4 }}
+                                activeDot={{ strokeWidth: 0, r: 6 }}
                             />
                         </LineChart>
                     </ResponsiveContainer>
 
                 )
 
-            // case 'bar':
-            //     return(
-            //         <ResponsiveContainer width="100%" height={height}>
-            //             <BarChart></BarChart>
-            //         </ResponsiveContainer>
+            case 'bar':
+                return (
+                    <ResponsiveContainer width="100%" height={height}>
+                        <BarChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
+                            <XAxis dataKey={categoryKey} tick={{ fontSize: 12 }} />
+                            <YAxis tick={{ fontSize: 12 }} />
+                            <Tooltip
+                                contentStyle={{
+                                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                                    border: 'none',
+                                    borderRadius: '6px',
+                                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                                    padding: '8px 12px',
+                                }}
+                            />
+                            <Bar dataKey={dataKey} fill={colors[0]} radius={[4, 4, 0, 0]}>
+                                {data.map((_, index) => (
+                                    <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                                ))}
 
-            //     )
-            //     break;
+                            </Bar>
+                        </BarChart>
+                    </ResponsiveContainer>
 
+                )
         }
     }
 
