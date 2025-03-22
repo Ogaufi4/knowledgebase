@@ -149,7 +149,32 @@ export default function Analytics() {
                                 <CardTitle>Top Contributors</CardTitle>
                                 <CardDescription>Users with the most submissions this {timeRange}</CardDescription>
                             </CardHeader>
-                            <CardContent></CardContent>
+                            <CardContent>
+
+                                <div className='space-y-4'>
+                                    {contributors.map((contributor, index) => (
+                                        <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors">
+                                            <div className='flex items-center'>
+                                                <div className='w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-medium mr-4'>
+                                                    {contributor.name.split(' ').map(n=> n[0]).join('')}
+                                                </div>
+                                            <div>
+                          <p className="font-medium">{contributor.name}</p>
+                          <p className="text-sm text-muted-foreground">{contributor.institution}</p>
+                          <p className="text-sm text-muted-foreground">{contributor.region}</p>
+                        </div>
+                                            </div>
+
+                                            <div className="text-right">
+                                                <p className="font-bold">{contributor.submissions}</p>
+                                                <p className="text-sm text-muted-foreground">submissions</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+
+                            </CardContent>
                         </Card>
 
                         {/* popular tags */}
@@ -162,17 +187,17 @@ export default function Analytics() {
                             <CardContent>
 
                                 <div className='flex flex-wrap gap-2'>
-                                    {categoriesExtras.map((tag, index)=>(
+                                    {categoriesExtras.map((tag, index) => (
                                         <div key={index}
-                                        className='
+                                            className='
                                         rounded-full
                                         py-1 px-3 flex items-center font-medium text-xs bg-primary/20
                                         '
                                         >
                                             <span>
                                                 {tag.name}
-                                                </span>
-                                                <span className='ml-1.5 bg-primary/20 text-primary rounded-full py-0.5 px-1.5 text-[10px]'>{tag.count}</span>
+                                            </span>
+                                            <span className='ml-1.5 bg-primary/20 text-primary rounded-full py-0.5 px-1.5 text-[10px]'>{tag.count}</span>
                                         </div>
                                     ))}
                                 </div>
