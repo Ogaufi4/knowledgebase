@@ -1,6 +1,7 @@
 "use client"
 import ArticleCard from '@/app/components/articles/article-card'
 import ChartCard from '@/app/components/shared/chart-card'
+import MetricsCard from '@/app/components/shared/metrics-card'
 import { Button } from '@/app/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/app/components/ui/select'
@@ -55,7 +56,7 @@ export default function Analytics() {
                     {/* Header metrics */}
 
 
-                    {/* <OverViewGridAnalytics/> */}
+                    <MetricsCard />
 
                     <Tabs defaultValue="cahrts" className="mb-10">
                         <TabsList className="mb-6">
@@ -142,9 +143,9 @@ export default function Analytics() {
                     {/* charts and recent submissions */}
 
                     {/* additional metrics */}
-                    <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+                    <div className='grid grid-cols-1 md:grid-cols-3 gap-6 '>
                         {/* top contributors */}
-                        <Card className='shadow-sm md:col-span-2'>
+                        <Card className='shadow-sm md:col-span-2 bg-white' >
                             <CardHeader>
                                 <CardTitle>Top Contributors</CardTitle>
                                 <CardDescription>Users with the most submissions this {timeRange}</CardDescription>
@@ -156,13 +157,13 @@ export default function Analytics() {
                                         <div key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors">
                                             <div className='flex items-center'>
                                                 <div className='w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-medium mr-4'>
-                                                    {contributor.name.split(' ').map(n=> n[0]).join('')}
+                                                    {contributor.name.split(' ').map(n => n[0]).join('')}
                                                 </div>
-                                            <div>
-                          <p className="font-medium">{contributor.name}</p>
-                          <p className="text-sm text-muted-foreground">{contributor.institution}</p>
-                          <p className="text-sm text-muted-foreground">{contributor.region}</p>
-                        </div>
+                                                <div>
+                                                    <p className="font-medium">{contributor.name}</p>
+                                                    <p className="text-sm text-muted-foreground">{contributor.institution}</p>
+                                                    <p className="text-sm text-muted-foreground">{contributor.region}</p>
+                                                </div>
                                             </div>
 
                                             <div className="text-right">
@@ -179,7 +180,7 @@ export default function Analytics() {
 
                         {/* popular tags */}
 
-                        <Card className='shadow-sm'>
+                        <Card className='shadow-sm bg-white'>
                             <CardHeader>
                                 <CardTitle>Popular Tags</CardTitle>
                                 <CardDescription>Most frequently used tags in submissions</CardDescription>

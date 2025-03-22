@@ -124,7 +124,7 @@ const ChartCard = ({
     }
 
     return (
-        <Card className={cn('shadow-sm overflow-hidden', className)}>
+        <Card className={cn('shadow-sm overflow-hidden bg-white', className)}>
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
                 {description && <CardDescription>{description}</CardDescription>}
