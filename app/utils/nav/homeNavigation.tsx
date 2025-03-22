@@ -16,6 +16,7 @@ export default function HomeNavigation() {
         { href: '/', label: 'Home' },
         { href: '/browse', label: 'Browse' },
         { href: '/dashboard', label: 'Dashboard' },
+        { href: '/games', label: 'Games' },
         { href: '/contribute', label: 'Contribute' },
     ]
     useEffect(() => {
@@ -45,7 +46,7 @@ export default function HomeNavigation() {
                     href="/"
                     className="text-2xl font-bold text-primary transition-opacity duration-200 hover:opacity-80"
                 >
-                    IK<span className="text-foreground">Base</span>
+                    kitso<span className="text-foreground">Hub</span>
                 </Link>
                 {/* desktop nav */}
                 <nav className='hidden md:flex items-center space-x-1'>
