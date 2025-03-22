@@ -1,4 +1,5 @@
 import ArticleCard from '@/app/components/articles/article-card'
+import ChartCard from '@/app/components/shared/chart-card'
 import { Button } from '@/app/components/ui/button'
 import {
     Tabs,
@@ -6,7 +7,8 @@ import {
     TabsList,
     TabsTrigger,
 } from '@/app/components/ui/tabs'
-import { featuredArticles } from '@/app/utils/mock/articles'
+import { featuredArticles, monthlySubmissions } from '@/app/utils/mock/articles'
+import { categoryData } from '@/app/utils/mock/categories'
 import HomeNavigation from '@/app/utils/nav/homeNavigation'
 import { ArrowRight, BarChart, FileText } from 'lucide-react'
 import Link from 'next/link'
@@ -29,6 +31,7 @@ export default function Analytics() {
                                     </div>
                         {/* Header metrics */}
 
+
                         {/* <OverViewGridAnalytics/> */}
 
                         <Tabs defaultValue="cahrts" className="mb-10">
@@ -49,8 +52,34 @@ export default function Analytics() {
                                 </TabsTrigger>
                             </TabsList>
 
-                            <TabsContent value="charts">
-                                <p> Charts</p>
+                            <TabsContent value="charts" className='mt-10'>
+
+<div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6'>
+
+<ChartCard
+                                        title="Content by Category"
+                                        description="Distribution of entries across different categories"
+                                        data={categoryData}
+                                        type="pie"
+                                        dataKey="value"
+                                        categoryKey="name"
+                                        height={300}
+                                        />
+                                        {/* TODO: across regions */}
+
+
+                                        <ChartCard
+                                        title="Monthy Submissions"
+                                        description="Number of new submissions per month"
+                                        data={monthlySubmissions}
+                                        type="line"
+                                        dataKey="submissions"
+                                        categoryKey="month"
+                                        height={300}
+                                        />
+
+
+</div>
                             </TabsContent>
                             <TabsContent value="recent" className="mt-0">
                                 <p>Recent Submissions</p>
