@@ -15,6 +15,7 @@ export default function HomeNavigation() {
     const links = [
         { href: '/', label: 'Home' },
         { href: '/browse', label: 'Browse' },
+        { href: '/analytics', label: 'Analytics'},
         { href: '/dashboard', label: 'Dashboard' },
         { href: '/games', label: 'Games' },
         { href: '/contribute', label: 'Contribute' },
