@@ -12,6 +12,8 @@ import {
 } from '@/app/components/ui/tabs'
 import { featuredArticles, monthlySubmissions, sourceCredibility } from '@/app/utils/mock/articles'
 import { categoryData } from '@/app/utils/mock/categories'
+import { categoriesExtras } from '@/app/utils/mock/categoryStats'
+import { contributors } from '@/app/utils/mock/contributors'
 import HomeNavigation from '@/app/utils/nav/homeNavigation'
 import { ArrowRight, BarChart, FileText } from 'lucide-react'
 import Link from 'next/link'
@@ -157,7 +159,26 @@ export default function Analytics() {
                                 <CardTitle>Popular Tags</CardTitle>
                                 <CardDescription>Most frequently used tags in submissions</CardDescription>
                             </CardHeader>
-                            <CardContent></CardContent>
+                            <CardContent>
+
+                                <div className='flex flex-wrap gap-2'>
+                                    {categoriesExtras.map((tag, index)=>(
+                                        <div key={index}
+                                        className='
+                                        rounded-full
+                                        py-1 px-3 flex items-center font-medium text-xs bg-primary/20
+                                        '
+                                        >
+                                            <span>
+                                                {tag.name}
+                                                </span>
+                                                <span className='ml-1.5 bg-primary/20 text-primary rounded-full py-0.5 px-1.5 text-[10px]'>{tag.count}</span>
+                                        </div>
+                                    ))}
+                                </div>
+
+
+                            </CardContent>
                         </Card>
 
 
