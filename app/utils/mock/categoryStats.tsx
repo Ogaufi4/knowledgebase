@@ -30,3 +30,18 @@ export const categories = [
       icon: '🧠'
     }
   ];
+
+export const categoriesExtras = [
+  { name: 'Conservation', count: 87 },
+  { name: 'Medicine', count: 76 },
+  { name: 'History', count: 65 },
+  { name: 'Climate Change', count: 59 },
+  { name: 'Botany', count: 54 },
+  { name: 'Archaeology', count: 51 },
+  { name: 'Marine Biology', count: 45 },
+  { name: 'Traditional Knowledge', count: 42 },
+  { name: 'Evolution', count: 38 },
+  { name: 'Sustainability', count: 35 },
+  { name: 'Design', count: 32 },
+  { name: 'Wildlife', count: 31 }
+]
