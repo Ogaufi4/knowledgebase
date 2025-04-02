@@ -1,30 +1,44 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import { SuggestedActions } from "@/app/components/suggested-actions";
+import React, { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from 'next/navigation';
+import { SuggestedActions } from "@/app/components/suggested-actions"; // Adjust the import path as necessary
+import { createChat, loadChat, saveChat } from "@/app/tools/chat-store";
 
 export default function KitsoAIPage() {
-    const [isOpen, setIsOpen] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id');
     const [messages, setMessages] = useState<{ sender: string; message: string }[]>([]); 
     const [userMessage, setUserMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false); // For loading state when waiting for AI response
-    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const [isNewChat, setIsNewChat] = useState(true); // For determining if it's a new chat
 
     useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        if (!id) {
+            createChat().then(newId => {
+                router.push(`/dashboard/kitsoai/${newId}`);
+            });
+        } else {
+            loadChat(id).then(initialMessages => {
+                setMessages(initialMessages);
+                setIsNewChat(initialMessages.length === 0);
+            });
         }
-    }, [messages]);
+    }, [id]);
 
     // Handle sending user message
-    const handleSendMessage = async (event: React.FormEvent) => {
+    const handleSendMessage = async (event: React.FormEvent): Promise<string | null | undefined> => {
         event.preventDefault();
         if (userMessage.trim()) {
-            setMessages((prevMessages) => [
-                ...prevMessages,
+            const newMessages = [
+                ...messages,
                 { sender: "You", message: userMessage },
-            ]);
+            ];
+            setMessages(newMessages);
             setUserMessage(""); // Clear input field
             setIsLoading(true); // Set loading state
+            setIsNewChat(false); // Set to false after first message
+            setShowSuggestions(false); // Hide suggestions after first message
 
             // Call the API to get the AI response
             try {
@@ -34,10 +48,8 @@ export default function KitsoAIPage() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        messages: [
-                            { role: 'user', content: userMessage },
-                        ],
-                        category: 'Botswana Indigenous Knowledge', // Customize as needed
+                        id,
+                        messages: newMessages,
                     }),
                 });
 
@@ -54,10 +66,12 @@ export default function KitsoAIPage() {
                     console.log("Extracted Bot Message:", botMessage);
 
                     // Update messages state with bot's response
-                    setMessages((prevMessages) => [
-                        ...prevMessages,
+                    const updatedMessages = [
+                        ...newMessages,
                         { sender: "AI", message: botMessage },
-                    ]);
+                    ];
+                    setMessages(updatedMessages);
+                    await saveChat({ id, messages: updatedMessages });
                 } else {
                     console.error("API Error:", data);
                     setMessages((prevMessages) => [
@@ -77,25 +91,33 @@ export default function KitsoAIPage() {
         }
     };
 
-    const appendAndTrigger = async (message: { id: string; role: string; content: string }) => {
-        setUserMessage(message.content); // Set the user message to the content of the message
-        await handleSendMessage({ preventDefault: () => {} } as unknown as React.FormEvent);
-        setIsOpen(false); // Hide suggestions after first message
+    // Handle starting a new chat
+    const handleNewChat = async () => {
+        const newId = await createChat();
+        router.push(`/dashboard/kitsoai/${newId}`);
     };
 
     return (
         <>
-        <div className="flex h-full bg-gray-50 dark:bg-gray-900"> 
+        <div className="flex h-full bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col flex-1 overflow-y-auto p-4 bg-gray-100 dark:bg-gray-800">
                 <div
                     id="chatContainer"
-                    className="flex flex-col flex-1 top-10 bg-white p-4 rounded-lg border border-[#e5e7eb] w-full h-full"
+                    className="flex flex-col flex-1 top-10 bg-white p-6 rounded-lg border border-[#e5e7eb] w-full h-full"
                 >
                     {/* Heading */}
-                    <div className="flex flex-col space-y-1 pb-0">
-                        <h2 className="font-semibold text-lg tracking-tight">Kitso Ai</h2>
+                    <div className="flex flex-col space-y-1.5 pb-6">
+                        <div className="flex justify-between items-center">
+                            <h2 className="font-semibold text-lg tracking-tight">Kitso Ai</h2>
+                            <button
+                                onClick={handleNewChat}
+                                className="inline-flex items-center justify-center rounded-full text-sm font-medium text-[#f9fafb] bg-blue-600 hover:bg-blue-700 h-10 w-10"
+                            >
+                                +
+                            </button>
+                        </div>
                         <p className="text-sm text-[#6b7280] leading-3">
-                            Powered by openAi and KitsoAi
+                            Powered by openAi and Kitso Hub
                         </p>
                     </div>
 
@@ -107,10 +129,7 @@ export default function KitsoAIPage() {
                         {messages.map((message, index) => (
                             <div
                                 key={index}
-                                className="flex gap-3 my-4 text-sm"
-                                style={{
-                                    textAlign: message.sender === "You" ? "justify" : "left",
-                                }}
+                                className={`flex gap-3 my-4 text-sm ${message.sender === "You" ? "justify-end" : "justify-start"}`}
                             >
                                 <span className="relative flex shrink-0 overflow-hidden rounded-full w-8 h-8">
                                     <div className="rounded-full bg-gray-100 border p-1">
@@ -138,17 +157,23 @@ export default function KitsoAIPage() {
                                 </p>
                             </div>
                         ))}
-                        <div ref={messagesEndRef} />
                     </div>
 
-                    {/* Suggested Actions */}
-                    {messages.length === 0 && (
+                    {/* Input Box */}
+                    {showSuggestions && (
                         <div className="flex flex-col mb-5">
-                            <SuggestedActions appendAndTrigger={appendAndTrigger} />
+                            <SuggestedActions append={async (message) => {
+                                setMessages((prevMessages) => [
+                                    ...prevMessages,
+                                    { sender: "You", message: message.content },
+                                ]);
+                                setUserMessage(message.content);
+                                await handleSendMessage({ preventDefault: () => {} } as unknown as React.FormEvent);
+                                setUserMessage(""); // Clear the user message to create space
+                                return null;
+                            }} />
                         </div>
                     )}
-
-                    {/* Input Box */}
                     <div className="flex items-center pt-0 ">
                         <form
                             id="chatForm"
@@ -181,3 +206,4 @@ export default function KitsoAIPage() {
 function getBotResponse(userMessage: string) {
     throw new Error("Function not implemented.");
 }
+

@@ -19,6 +19,7 @@ import { LucideArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useAudio } from 'react-use'
 import ConfettiButton from '@/app/components/shared/confetti'
+import Countdown from '@/app/components/shared/games/countdown'
 
 export default function QuizApp() {
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null)
@@ -33,7 +34,9 @@ export default function QuizApp() {
         wrongAnswers: 0,
     })
     const [isVisible, setIsVisible] = useState(false)
-    const maxLevel = 2
+    const [timeTaken, setTimeTaken] = useState(0)
+    const maxLevel = 5
+    const countdownTime = 60 // Set timer duration in seconds
     const quizItem = question
     const quizQuestion = quizItem?.phrase
 
@@ -71,6 +74,7 @@ export default function QuizApp() {
                 text: 'You got the answer wrong',
                 icon: 'error',
                 confirmButtonText: 'Next Question',
+                html: `<p>Correct Answer: ${question?.meaning}</p>`,
             })
             .then(() => {
                 setCurrentLevel((prev) => Math.min(prev + 1, maxLevel))
@@ -87,15 +91,28 @@ export default function QuizApp() {
     }
 
     const displayResults = () => {
+        const formattedTime = new Date(timeTaken * 1000).toISOString().substr(11, 8) // Format time as HH:MM:SS
         withReactContent(Swal).fire({
             title: 'Quiz Results',
             html: `
         <p>Score: ${quizResult.score}</p>
         <p>Correct Answers: ${quizResult.correctAnswers}</p>
         <p>Wrong Answers: ${quizResult.wrongAnswers}</p>
-      `,
+        <p>Time Taken: ${Math.floor(timeTaken / 1000)} seconds</p>
+          `,
             icon: 'success',
             confirmButtonText: 'OK',
+        })
+    }
+
+    const handleTimeOver = () => {
+        setShowResults(true)
+        checkAnswers()
+        withReactContent(Swal).fire({
+            title: 'Time is up!',
+            text: 'See how you did!',
+            icon: 'info',
+            confirmButtonText: 'Check Results',
         })
     }
 
@@ -137,7 +154,7 @@ export default function QuizApp() {
             <Card className="w-full max-w-lg mx-4 bg-white/90 border border-gray-200 shadow-xl backdrop-blur-sm relative z-10">
                 <CardHeader>
                     <CardTitle className="text-xl font-bold text-center text-gray-800">
-                        <div className="flex items-center">
+                        <div className="flex items-center justify-between">
                             <Button
                                 onClick={() => router.back()}
                                 variant={'ghost'}
@@ -150,6 +167,12 @@ export default function QuizApp() {
                                 <div className="text-3xl">Maele A Setswana</div>
                                 <div className="">Quiz</div>
                             </div>
+                            <Countdown
+                                countdowntime={countdownTime}
+                                timerOver={handleTimeOver}
+                                setTimeTaken={setTimeTaken}
+                                completed={completed}
+                            />
                         </div>
                     </CardTitle>
                 </CardHeader>
@@ -176,12 +199,12 @@ export default function QuizApp() {
                                 currentLevel={currentLevel}
                                 maxLevel={maxLevel}
                             />
-                            <p className="mb-6 text-lg font-medium text-center text-gray-700">
-                                {quizQuestion}
+                            <div className="mb-6 text-lg font-medium text-center text-gray-700">
+                                <p>{quizQuestion}</p>
                                 <div className="text-white text-xs">
                                     {question?.meaning}
                                 </div>
-                            </p>
+                            </div>
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 {allOptions.map((answer, index) => (
                                     <Button

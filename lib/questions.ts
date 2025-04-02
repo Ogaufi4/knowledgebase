@@ -33,7 +33,7 @@ export const phrases = [
     },
     { phrase: 'Go bipa mpa ka mabele', meaning: 'To hide a secret' },
     {
-        phrase: 'Go bogola poo e tsweletse ka go bopa',
+        phrase: 'Go   poo e tsweletse ka go bopa',
         meaning: 'To keep retrying unsuccessfully',
     },
     {
